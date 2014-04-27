@@ -2,15 +2,45 @@
 
     var root = this;
 
+    var n2s = function (number, len){
+        if (!len) len = 2;
+        var str = number.toString();
+        return ('000000000' + str).slice(-len);
+    }
+
     var TimeSpan = function (totalMs) {
 
         this.format = function(format) {
-
+            var time = this.time();
+            if (!format) format = 'hh:mm:ss.fff';
+            return format
+                .replace('hh', n2s(time.hours))
+                .replace('mm', n2s(time.minutes))
+                .replace('ss', n2s(time.seconds))
+                .replace('fff', n2s(time.miliseconds, 3))
+                .replace('ff', n2s(Math.round(time.miliseconds / 10), 2))
+                .replace('f', n2s(Math.round(time.miliseconds / 100), 1));
         };
 
         this.totalMiliseconds = function() {
             return totalMs;
-        }
+        };
+
+        this.time = function() {
+            var ms = totalMs;
+            var hours = Math.floor(ms/3600000);
+            ms = ms - hours * 3600000;
+            var minutes = Math.floor(ms / 60000);
+            ms = ms - minutes * 60000;
+            var seconds = Math.floor(ms / 1000);
+            ms = ms - seconds * 1000;
+            return {
+                hours: hours,
+                minutes: minutes,
+                seconds: seconds,
+                miliseconds: ms
+            };
+        };
 
         return this;
     }
