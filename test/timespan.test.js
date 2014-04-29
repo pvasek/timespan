@@ -20,6 +20,9 @@ describe('timespan', function () {
         it('should return null if the value is not formatted with given format', function () {
             expect(timespan('10:20:30.4', 'hh:mm:ss.fff')).to.be.equal(null);
         });
+        it('should parse value with tenthformat', function () {
+            expect(timespan('10:20:30.40', 'hh:mm:ss.ff').totalMiliseconds()).to.be.equal(37230400);
+        });
     });
 
     describe('formatting', function () {
@@ -40,6 +43,9 @@ describe('timespan', function () {
 
         it ('should format with one place miliseconds', function() {
             expect(timespan(37230678).format('hh:mm:ss.f')).to.be.equal('10:20:30.7');            
+        });
+        it ('should format with custom format if includes only tenths', function() {
+            expect(timespan(37230800).format()).to.be.equal('10:20:30.800');            
         });
     })
 });

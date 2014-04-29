@@ -2,7 +2,7 @@
 
     var root = this;
 
-    var n2s = function (number, len){
+    var padLeft = function (number, len){
         if (!len) len = 2;
         var str = number.toString();
         return ('000000000' + str).slice(-len);
@@ -14,12 +14,12 @@
             var time = this.time();
             if (!format) format = 'hh:mm:ss.fff';
             return format
-                .replace('hh', n2s(time.hours))
-                .replace('mm', n2s(time.minutes))
-                .replace('ss', n2s(time.seconds))
-                .replace('fff', n2s(time.miliseconds, 3))
-                .replace('ff', n2s(Math.round(time.miliseconds / 10), 2))
-                .replace('f', n2s(Math.round(time.miliseconds / 100), 1));
+                .replace('hh', padLeft(time.hours))
+                .replace('mm', padLeft(time.minutes))
+                .replace('ss', padLeft(time.seconds))
+                .replace('fff', padLeft(time.miliseconds, 3))
+                .replace('ff', padLeft(Math.round(time.miliseconds / 10), 2))
+                .replace('f', padLeft(Math.round(time.miliseconds / 100), 1));
         };
 
         this.totalMiliseconds = function() {
@@ -65,6 +65,8 @@
             tmp[i] = tmp[i] ? parseInt(tmp[i], 10) : 0;
         })
         var ms = tmp.f;
+        if (ms < 10) ms = ms * 10;
+        if (ms < 100) ms = ms * 10;
         ms = ms + tmp.s * 1000;
         ms = ms + tmp.m * 60 * 1000;
         ms = ms + tmp.h * 60 * 60 * 1000;
