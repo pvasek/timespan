@@ -23,6 +23,9 @@ describe('timespan', function () {
         it('should parse value with tenthformat', function () {
             expect(timespan('10:20:30.40', 'hh:mm:ss.ff').totalMiliseconds()).to.be.equal(37230400);
         });
+        it('should parse value with tenthformat starting with 0', function () {
+            expect(timespan('10:20:30.04', 'hh:mm:ss.ff').totalMiliseconds()).to.be.equal(37230040);
+        });
     });
 
     describe('formatting', function () {

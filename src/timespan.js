@@ -62,11 +62,13 @@
             }
         }
         ['h', 'm', 's', 'f'].forEach(function(i){
-            tmp[i] = tmp[i] ? parseInt(tmp[i], 10) : 0;
-        })
+            if (i === 'f') { 
+                tmp[i] = tmp[i] ? parseFloat('0.' + tmp[i])*1000 : 0;
+            } else {
+                tmp[i] = tmp[i] ? parseInt(tmp[i], 10) : 0;
+            }
+        })        
         var ms = tmp.f;
-        if (ms < 10) ms = ms * 10;
-        if (ms < 100) ms = ms * 10;
         ms = ms + tmp.s * 1000;
         ms = ms + tmp.m * 60 * 1000;
         ms = ms + tmp.h * 60 * 60 * 1000;
