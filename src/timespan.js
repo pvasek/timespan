@@ -85,8 +85,7 @@
 
         return new TimeSpan(0);
     };
-
-    console.log('test1');
+    
      if(typeof exports !== 'undefined') {
         if(typeof module !== 'undefined' && module.exports){
           exports = module.exports = timespan;
